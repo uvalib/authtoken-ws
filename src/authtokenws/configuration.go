@@ -1,9 +1,10 @@
 package main
 
 type Configuration struct {
-   Port            string
-   LdapUrl         string
-   LdapBaseDn      string
-   HealthCheckUser string
+    ServicePort   string
+    DbHost        string
+    DbName        string
+    DbUser        string
+    DbPassphrase  string
 }
 

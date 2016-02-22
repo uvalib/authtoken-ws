@@ -16,10 +16,10 @@ type Routes [] Route
 
 var routes = Routes{
    Route{
-      "UserShow",
+      "TokenLookup",
       "GET",
-      "/user/{userId}",
-      UserShow,
+      "/authtoken/{whom}/{what}/{token}",
+      TokenLookup,
    },
    Route{
       "HealthCheck",

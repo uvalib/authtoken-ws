@@ -1,65 +1,21 @@
 package main
 
 import (
-   "fmt"
+   //"fmt"
    "log"
    "time"
-   "github.com/nmcclain/ldap"
 )
 
-var	Attributes []string = []string{"displayName", "givenName", "initials", "sn", "description", "uvaDisplayDepartment", "title", "physicalDeliveryOfficeName", "mail", "telephoneNumber"}
-
-func LookupUser( userId string ) ( User, error ) {
+func GetTokenDetails( token string ) ( Token, error ) {
 
 	start := time.Now( )
 
-	l, err := ldap.DialTimeout("tcp", config.LdapUrl, time.Second * 10 )
-	if err != nil {
-		log.Printf( "ERROR: %s\n", err.Error( ) )
-		return User{ }, err
-	}
+    log.Printf( "Token %s NOT FOUND\t%s", token, time.Since( start ) )
 
-	defer l.Close()
-	// l.Debug = true
+    // return empty token if not found
+    return Token{ }, nil
+}
 
-	//err = l.Bind(user, passwd)
-	//if err != nil {
-	//   log.Printf("ERROR: Cannot bind: %s\n", err.Error())
-	//   return
-	//}
-
-	search := ldap.NewSearchRequest(
-		config.LdapBaseDn,
-		ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 0, false,
-		fmt.Sprintf( "(userId=%s)", userId ),
-		Attributes,
-		nil )
-
-	sr, err := l.Search(search)
-	if err != nil {
-		log.Printf( "ERROR: %s\n", err.Error( ) )
-		return User{ }, err
-	}
-
-	if len( sr.Entries ) == 1 {
-		log.Printf( "Lookup %s OK\t%s", userId, time.Since( start ) )
-        return User {
-		    UserId:       userId,
-			DisplayName:  sr.Entries[ 0 ].GetAttributeValue( "displayName" ),
-			FirstName:    sr.Entries[ 0 ].GetAttributeValue( "givenName" ),
-			Initials:     sr.Entries[ 0 ].GetAttributeValue( "initials" ),
-			LastName:     sr.Entries[ 0 ].GetAttributeValue( "sn" ),
-			Description:  sr.Entries[ 0 ].GetAttributeValue( "description" ),
-			Department:   sr.Entries[ 0 ].GetAttributeValue( "uvaDisplayDepartment" ),
-			Title:        sr.Entries[ 0 ].GetAttributeValue( "title" ),
-			Office:       sr.Entries[ 0 ].GetAttributeValue( "physicalDeliveryOfficeName" ),
-			Phone:        sr.Entries[ 0 ].GetAttributeValue( "telephoneNumber" ),
-			Email:        sr.Entries[ 0 ].GetAttributeValue( "mail" ),
-		}, nil
-	}
-
-   log.Printf( "Lookup %s NOT FOUND\t%s", userId, time.Since( start ) )
-
-   // return empty user if not found
-   return User{ }, nil
+func ActivityIsOk( details Token, whom string, what string ) bool {
+    return true
 }

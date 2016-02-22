@@ -6,6 +6,6 @@ type HealthCheckResult struct {
 }
 
 type HealthCheckResponse struct {
-	CheckType      HealthCheckResult `json:"ldap"`
+	CheckType      HealthCheckResult `json:"ezid"`
 }
 
