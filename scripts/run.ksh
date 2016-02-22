@@ -1,0 +1,1 @@
+bin/authtoken-ws.darwin
