@@ -18,7 +18,7 @@ var routes = Routes{
    Route{
       "TokenLookup",
       "GET",
-      "/authtoken/{whom}/{what}/{token}",
+      "/authorize/{whom}/{what}/{token}",
       TokenLookup,
    },
    Route{
