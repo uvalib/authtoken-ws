@@ -1,8 +1,11 @@
-FROM alpine:3.3
+FROM centos:7
 
-RUN apk add --update bash && rm -rf /var/cache/apk/*
+ENV APP_HOME /authtoken-ws
+RUN mkdir -p $APP_HOME/scripts $APP_HOME/bin
 
 EXPOSE 8080
-CMD ./authtoken-ws
+CMD scripts/entry.sh
+WORKDIR $APP_HOME
 
-COPY bin/authtoken-ws.linux authtoken-ws
+COPY scripts/entry.sh $APP_HOME/scripts/entry.sh
+COPY bin/authtoken-ws.linux $APP_HOME/bin/authtoken-ws
