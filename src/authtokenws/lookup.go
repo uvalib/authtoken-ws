@@ -2,15 +2,15 @@ package main
 
 import (
    //"fmt"
-   "log"
-   "time"
+   //"log"
+   //"time"
 )
 
 func GetTokenDetails( token string ) ( Token, error ) {
 
-	start := time.Now( )
+	//start := time.Now( )
 
-    log.Printf( "Token %s NOT FOUND\t%s", token, time.Since( start ) )
+    //log.Printf( "Token %s NOT FOUND\t%s", token, time.Since( start ) )
 
     // return empty token if not found
     return Token{ }, nil
