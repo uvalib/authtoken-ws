@@ -1,6 +1,6 @@
-if [ -z "$DBPASSWORD" ]; then
-   echo "ERROR: DBPASSWORD must be defined"
+if [ -z "$DBPASSWD" ]; then
+   echo "ERROR: DBPASSWD must be defined"
    exit 1
 fi
 
-bin/authtoken-ws.darwin --dbpassword $DBPASSWORD
+bin/authtoken-ws.darwin --dbpassword $DBPASSWD
