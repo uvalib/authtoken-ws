@@ -1,6 +1,6 @@
-package main
+package response
 
-type Response struct {
+type Default struct {
    Status        int     `json:"status"`
    Message       string  `json:"message"`
 }
