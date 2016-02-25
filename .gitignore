@@ -2,3 +2,5 @@
 src/github.com
 bin
 pkg
+sql/addtokens.sql
+env

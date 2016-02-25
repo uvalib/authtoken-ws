@@ -1,9 +1,10 @@
 package main
 
 import (
-   "encoding/json"
-   "net/http"
-   "github.com/gorilla/mux"
+    "log"
+    "encoding/json"
+    "net/http"
+    "github.com/gorilla/mux"
 )
 
 func TokenLookup( w http.ResponseWriter, r *http.Request ) {
@@ -13,18 +14,13 @@ func TokenLookup( w http.ResponseWriter, r *http.Request ) {
     token := vars[ "token" ]
 
     w.Header().Set( "Content-Type", "application/json; charset=UTF-8" )
-    details, err := GetTokenDetails( token )
 
-    if err != nil {
-        w.WriteHeader( http.StatusInternalServerError )
-        return
-    }
-   
-    if ActivityIsOk( details, whom, what ) {
+    // is this a good token and
+    if ActivityIsOk( whom, what, token ) {
         status := http.StatusOK
         w.WriteHeader( status )
         if err := json.NewEncoder( w ).Encode( Response{ Status: status, Message: http.StatusText( status ) } ); err != nil {
-            panic( err )
+            log.Fatal( err )
         }
         return
     }
@@ -33,7 +29,7 @@ func TokenLookup( w http.ResponseWriter, r *http.Request ) {
     status := http.StatusForbidden
     w.WriteHeader( status )
     if err := json.NewEncoder(w).Encode( Response{ Status: status, Message: http.StatusText( status ) } ); err != nil {
-        panic(err)
+        log.Fatal( err )
     }
 }
 
@@ -46,6 +42,6 @@ func HealthCheck( w http.ResponseWriter, r *http.Request ) {
     w.WriteHeader( http.StatusOK )
 
     if err := json.NewEncoder(w).Encode( HealthCheckResponse { CheckType: HealthCheckResult{ Healthy: healthy, Message: message } } ); err != nil {
-        panic(err)
+        log.Fatal( err )
     }
 }
