@@ -5,7 +5,7 @@ import (
     "encoding/json"
     "net/http"
     "github.com/gorilla/mux"
-    "authtokenws/response"
+    "authtokenws/api"
 )
 
 func TokenLookup( w http.ResponseWriter, r *http.Request ) {
