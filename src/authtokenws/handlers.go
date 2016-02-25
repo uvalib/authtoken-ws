@@ -29,7 +29,7 @@ func HealthCheck( w http.ResponseWriter, r *http.Request ) {
 func encodeResponse( w http.ResponseWriter, status int ) {
     jsonResponse( w )
     w.WriteHeader( status )
-    if err := json.NewEncoder(w).Encode( response.Default{ Status: status, Message: http.StatusText( status ) } ); err != nil {
+    if err := json.NewEncoder(w).Encode( api.DefaultResponse{ Status: status, Message: http.StatusText( status ) } ); err != nil {
         log.Fatal( err )
     }
 }
@@ -38,7 +38,7 @@ func encodeHealthCheckResponse( w http.ResponseWriter, status int, message strin
     healthy := status == http.StatusOK
     jsonResponse( w )
     w.WriteHeader( status )
-    if err := json.NewEncoder(w).Encode( response.HealthCheck { CheckType: response.HealthCheckResult{ Healthy: healthy, Message: message } } ); err != nil {
+    if err := json.NewEncoder(w).Encode( api.HealthCheckResponse { CheckType: api.HealthCheckResult{ Healthy: healthy, Message: message } } ); err != nil {
         log.Fatal( err )
     }
 }
