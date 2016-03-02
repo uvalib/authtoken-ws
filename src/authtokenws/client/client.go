@@ -10,7 +10,7 @@ import (
 func Auth( endpoint string, whom string, what string, token string ) int {
 
     url := fmt.Sprintf( "%s/authorize/%s/%s/%s", endpoint, whom, what, token )
-    fmt.Printf( "%s\n", url )
+    //fmt.Printf( "%s\n", url )
 
     resp, _, errs := gorequest.New( ).
        SetDebug( false ).

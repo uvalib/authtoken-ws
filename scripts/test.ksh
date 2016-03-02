@@ -1,4 +1,3 @@
-
 export GOPATH=$(pwd)
 
-go test authtokenws
+go test -v authtokenws
