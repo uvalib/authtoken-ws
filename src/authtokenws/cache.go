@@ -6,6 +6,7 @@ import (
     "github.com/patrickmn/go-cache"
     "database/sql"
     _ "github.com/go-sql-driver/mysql"
+    "strings"
 )
 
 // create the cache
@@ -50,12 +51,15 @@ func LoadTokenCache( ) error {
     return nil
 }
 
-func ActivityIsOk( whom string, what string, token string ) bool {
+func ParametersOk( whom string, what string, token string ) bool {
 
     // validate inbound parameters
-    if len( whom ) == 0 || len( what ) == 0 || len( token ) == 0 {
-        return false
-    }
+    return len( strings.TrimSpace( whom ) ) != 0 &&
+           len( strings.TrimSpace( what ) ) != 0 &&
+           len( strings.TrimSpace( token ) ) != 0
+}
+
+func ActivityIsOk( whom string, what string, token string ) bool {
 
     log.Printf( "Token lookup: whom [%s], what [%s], token [%s]", whom, what, token )
 

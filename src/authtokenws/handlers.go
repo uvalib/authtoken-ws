@@ -14,12 +14,19 @@ func TokenLookup( w http.ResponseWriter, r *http.Request ) {
     what := vars[ "what" ]
     token := vars[ "token" ]
 
-    // is this a good token ?
-    if ActivityIsOk( whom, what, token ) {
-        encodeResponse( w, http.StatusOK )
-    } else {
-        encodeResponse( w, http.StatusForbidden )
+    // parameters OK ?
+    if ParametersOk( whom, what, token ) == false {
+        encodeResponse(w, http.StatusBadRequest )
+        return
     }
+
+    // is this a good token ?
+    if ActivityIsOk(whom, what, token) == false {
+        encodeResponse(w, http.StatusForbidden)
+        return
+    }
+
+    encodeResponse(w, http.StatusOK)
 }
 
 func HealthCheck( w http.ResponseWriter, r *http.Request ) {
