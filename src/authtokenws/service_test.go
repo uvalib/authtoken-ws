@@ -3,7 +3,6 @@ package main
 import (
     "io/ioutil"
     "log"
-    "fmt"
     "testing"
     "authtokenws/client"
     "gopkg.in/yaml.v2"
@@ -23,9 +22,17 @@ var goodToken = cfg.Token
 var badToken = "badness"
 var empty = " "
 
+func TestHealthCheck( t *testing.T ) {
+    expected := http.StatusOK
+    status := client.HealthCheck( cfg.Endpoint )
+    if status != expected {
+        t.Fatalf( "Expected %v, got %v\n", expected, status )
+    }
+}
+
 func TestHappyDay( t *testing.T ) {
     expected := http.StatusOK
-    status := tester( goodWhom, goodWhat, goodToken )
+    status := client.Auth( cfg.Endpoint, goodWhom, goodWhat, goodToken )
     if status != expected {
         t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
@@ -33,7 +40,7 @@ func TestHappyDay( t *testing.T ) {
 
 func TestEmptyWhom( t *testing.T ) {
     expected := http.StatusBadRequest
-    status := tester( empty, goodWhat, goodToken )
+    status := client.Auth( cfg.Endpoint, empty, goodWhat, goodToken )
     if status != expected {
         t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
@@ -41,7 +48,7 @@ func TestEmptyWhom( t *testing.T ) {
 
 func TestEmptyWhat( t *testing.T ) {
     expected := http.StatusBadRequest
-    status := tester( goodWhom, empty, goodToken )
+    status := client.Auth( cfg.Endpoint, goodWhom, empty, goodToken )
     if status != expected {
         t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
@@ -49,7 +56,7 @@ func TestEmptyWhat( t *testing.T ) {
 
 func TestEmptyToken( t *testing.T ) {
     expected := http.StatusBadRequest
-    status := tester( goodWhom, goodWhat, empty )
+    status := client.Auth( cfg.Endpoint, goodWhom, goodWhat, empty )
     if status != expected {
         t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
@@ -57,14 +64,10 @@ func TestEmptyToken( t *testing.T ) {
 
 func TestBadToken( t *testing.T ) {
     expected := http.StatusForbidden
-    err := tester( goodWhom, goodWhat, badToken )
+    err := client.Auth( cfg.Endpoint, goodWhom, goodWhat, badToken )
     if err != expected {
         t.Fatalf( "Expected %v, got %v\n", expected, err )
     }
-}
-
-func tester( whom string, what string, token string ) int {
-    return client.Auth( cfg.Endpoint, whom, what, token )
 }
 
 func loadConfig( ) TestConfig {
@@ -79,8 +82,8 @@ func loadConfig( ) TestConfig {
         log.Fatal( err )
     }
 
-    fmt.Printf( "endpoint [%s]\n", c.Endpoint )
-    fmt.Printf( "token    [%s]\n", c.Token )
+    log.Printf( "endpoint [%s]\n", c.Endpoint )
+    log.Printf( "token    [%s]\n", c.Token )
 
     return c
 }
