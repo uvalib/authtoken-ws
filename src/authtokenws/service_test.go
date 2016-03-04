@@ -27,7 +27,7 @@ func TestHappyDay( t *testing.T ) {
     expected := http.StatusOK
     status := tester( goodWhom, goodWhat, goodToken )
     if status != expected {
-        t.Errorf( "Expected %v, got %v\n", expected, status )
+        t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
 }
 
@@ -35,7 +35,7 @@ func TestEmptyWhom( t *testing.T ) {
     expected := http.StatusBadRequest
     status := tester( empty, goodWhat, goodToken )
     if status != expected {
-        t.Errorf( "Expected %v, got %v\n", expected, status )
+        t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
 }
 
@@ -43,7 +43,7 @@ func TestEmptyWhat( t *testing.T ) {
     expected := http.StatusBadRequest
     status := tester( goodWhom, empty, goodToken )
     if status != expected {
-        t.Errorf( "Expected %v, got %v\n", expected, status )
+        t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
 }
 
@@ -51,7 +51,7 @@ func TestEmptyToken( t *testing.T ) {
     expected := http.StatusBadRequest
     status := tester( goodWhom, goodWhat, empty )
     if status != expected {
-        t.Errorf( "Expected %v, got %v\n", expected, status )
+        t.Fatalf( "Expected %v, got %v\n", expected, status )
     }
 }
 
@@ -59,7 +59,7 @@ func TestBadToken( t *testing.T ) {
     expected := http.StatusForbidden
     err := tester( goodWhom, goodWhat, badToken )
     if err != expected {
-        t.Errorf( "Expected %v, got %v\n", expected, err )
+        t.Fatalf( "Expected %v, got %v\n", expected, err )
     }
 }
 
