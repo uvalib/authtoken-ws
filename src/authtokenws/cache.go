@@ -7,6 +7,7 @@ import (
     "database/sql"
     _ "github.com/go-sql-driver/mysql"
     "strings"
+    "authtokenws/config"
 )
 
 // create the cache
@@ -20,7 +21,8 @@ type Permissions struct {
 
 func LoadTokenCache( ) error {
 
-    connectStr := fmt.Sprintf( "%s:%s@tcp(%s)/%s", config.DbUser, config.DbPassphrase, config.DbHost, config.DbName )
+    connectStr := fmt.Sprintf( "%s:%s@tcp(%s)/%s", config.Configuration.DbUser,
+        config.Configuration.DbPassphrase, config.Configuration.DbHost, config.Configuration.DbName )
     db, err := sql.Open( "mysql", connectStr )
     if err != nil {
         log.Fatal( err )
