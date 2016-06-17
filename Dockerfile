@@ -1,5 +1,6 @@
 FROM alpine:3.4
 
+# Add bash cos we dont get by default
 RUN apk --update add bash
 
 # Create the run user and group
