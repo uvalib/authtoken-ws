@@ -22,4 +22,4 @@ CMD scripts/entry.sh
 
 # Move in necessary assets
 COPY scripts/entry.sh $APP_HOME/scripts/entry.sh
-COPY bin/authtoken-ws.alpine $APP_HOME/bin/authtoken-ws
+COPY bin/authtoken-ws.linux $APP_HOME/bin/authtoken-ws
