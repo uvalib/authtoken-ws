@@ -1,7 +1,9 @@
-FROM centos:7
+FROM alpine:3.4
+
+RUN apk --update add bash
 
 # Create the run user and group
-RUN groupadd -r webservice && useradd -r -g webservice webservice
+RUN addgroup webservice && adduser webservice -G webservice -D
 
 # Specify home 
 ENV APP_HOME /authtoken-ws
@@ -20,4 +22,4 @@ CMD scripts/entry.sh
 
 # Move in necessary assets
 COPY scripts/entry.sh $APP_HOME/scripts/entry.sh
-COPY bin/authtoken-ws.linux $APP_HOME/bin/authtoken-ws
+COPY bin/authtoken-ws.alpine $APP_HOME/bin/authtoken-ws
