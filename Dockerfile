@@ -29,5 +29,5 @@ CMD scripts/entry.sh
 COPY scripts/entry.sh $APP_HOME/scripts/entry.sh
 COPY bin/authtoken-ws.linux $APP_HOME/bin/authtoken-ws
 
-# add the build ta
+# Add the build tag
 COPY buildtag.* $APP_HOME/
