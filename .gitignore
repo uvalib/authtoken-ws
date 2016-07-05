@@ -8,3 +8,4 @@ sql/addtokens.sql
 env.set
 env.unset
 src/authtokenws/service_test.yml
+buildtag.build-0
