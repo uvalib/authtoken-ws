@@ -33,6 +33,10 @@ func HealthCheck( w http.ResponseWriter, r *http.Request ) {
     encodeHealthCheckResponse( w, http.StatusOK, "" )
 }
 
+func GetVersion( w http.ResponseWriter, r *http.Request ) {
+    encodeVersionResponse( w, http.StatusOK, Version( ) )
+}
+
 func encodeResponse( w http.ResponseWriter, status int ) {
     jsonResponse( w )
     w.WriteHeader( status )
@@ -46,6 +50,14 @@ func encodeHealthCheckResponse( w http.ResponseWriter, status int, message strin
     jsonResponse( w )
     w.WriteHeader( status )
     if err := json.NewEncoder(w).Encode( api.HealthCheckResponse { CheckType: api.HealthCheckResult{ Healthy: healthy, Message: message } } ); err != nil {
+        log.Fatal( err )
+    }
+}
+
+func encodeVersionResponse( w http.ResponseWriter, status int, version string ) {
+    jsonResponse( w )
+    w.WriteHeader( status )
+    if err := json.NewEncoder(w).Encode( api.VersionResponse { Version: version } ); err != nil {
         log.Fatal( err )
     }
 }

@@ -15,18 +15,25 @@ type Route struct {
 type Routes [] Route
 
 var routes = Routes{
-   Route{
-      "TokenLookup",
-      "GET",
-      "/authorize/{whom}/{what}/{token}",
-      TokenLookup,
-   },
-   Route{
-      "HealthCheck",
-      "GET",
-      "/healthcheck",
-      HealthCheck,
-   },
+    Route{
+       "TokenLookup",
+       "GET",
+       "/authorize/{whom}/{what}/{token}",
+       TokenLookup,
+    },
+    Route{
+       "HealthCheck",
+       "GET",
+       "/healthcheck",
+       HealthCheck,
+    },
+
+    Route{
+        "GetVersion",
+        "GET",
+        "/version",
+        GetVersion,
+    },
 }
 
 func NewRouter( ) *mux.Router {

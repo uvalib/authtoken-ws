@@ -9,6 +9,8 @@ import (
 
 func main( ) {
 
+    log.Printf( "===> %s version: '%s' <===", config.Configuration.ServiceName, Version( ) )
+
     // load the token cache
     err := LoadTokenCache( )
     if err != nil {
