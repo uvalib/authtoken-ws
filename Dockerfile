@@ -27,6 +27,7 @@ CMD scripts/entry.sh
 
 # Move in necessary assets
 COPY scripts/entry.sh $APP_HOME/scripts/entry.sh
+COPY data/container_bash_profile /home/webservice/.profile
 COPY bin/authtoken-ws.linux $APP_HOME/bin/authtoken-ws
 
 # Add the build tag
