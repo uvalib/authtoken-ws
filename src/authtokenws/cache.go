@@ -8,6 +8,7 @@ import (
     _ "github.com/go-sql-driver/mysql"
     "strings"
     "authtokenws/config"
+    "authtokenws/logger"
 )
 
 // create the cache
@@ -41,8 +42,7 @@ func LoadTokenCache( ) error {
         if err != nil {
             log.Fatal( err )
         }
-        log.Println( token, whom, what )
-        log.Printf( "Adding: %s/%s -> %s", whom, what, token )
+        logger.Log( fmt.Sprintf( "Adding: %s/%s -> %s", whom, what, token ) )
         c.Set( token, Permissions{ Whom: whom, What: what }, cache.NoExpiration )
     }
     err = rows.Err( )
@@ -63,7 +63,7 @@ func ParametersOk( whom string, what string, token string ) bool {
 
 func ActivityIsOk( whom string, what string, token string ) bool {
 
-    log.Printf( "Token lookup: whom [%s], what [%s], token [%s]", whom, what, token )
+    logger.Log( fmt.Sprintf( "Token lookup: whom [%s], what [%s], token [%s]", whom, what, token ) )
 
     // lookup the token in the cache
     hit, found := c.Get( token )
@@ -74,6 +74,6 @@ func ActivityIsOk( whom string, what string, token string ) bool {
                 ( permission.What == "*" || permission.What == what )
     }
 
-    log.Printf( "Token found: %v", found )
+    logger.Log( fmt.Sprintf( "Token found: %v", found ) )
     return found
 }

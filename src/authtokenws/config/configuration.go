@@ -2,7 +2,8 @@ package config
 
 import (
     "flag"
-    "log"
+    "fmt"
+    "authtokenws/logger"
 )
 
 type Config struct {
@@ -29,11 +30,11 @@ func LoadConfig( ) Config {
 
     flag.Parse()
 
-    log.Printf( "ServicePort:  %s", c.ServicePort )
-    log.Printf( "DbHost:       %s", c.DbHost )
-    log.Printf( "DbName:       %s", c.DbName )
-    log.Printf( "DbUser:       %s", c.DbUser )
-    log.Printf( "DbPassphrase: %s", c.DbPassphrase )
+    logger.Log( fmt.Sprintf( "ServicePort:  %s", c.ServicePort ) )
+    logger.Log( fmt.Sprintf( "DbHost:       %s", c.DbHost ) )
+    logger.Log( fmt.Sprintf( "DbName:       %s", c.DbName ) )
+    logger.Log( fmt.Sprintf( "DbUser:       %s", c.DbUser ) )
+    logger.Log( fmt.Sprintf( "DbPassphrase: %s", c.DbPassphrase ) )
 
     return c
 }

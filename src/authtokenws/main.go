@@ -1,15 +1,16 @@
 package main
 
 import (
-   "fmt"
-   "log"
-   "net/http"
-   "authtokenws/config"
+    "fmt"
+    "log"
+    "net/http"
+    "authtokenws/config"
+    "authtokenws/logger"
 )
 
 func main( ) {
 
-    log.Printf( "===> %s version: '%s' <===", config.Configuration.ServiceName, Version( ) )
+    logger.Log( fmt.Sprintf( "===> version: '%s' <===", Version( ) ) )
 
     // load the token cache
     err := LoadTokenCache( )
