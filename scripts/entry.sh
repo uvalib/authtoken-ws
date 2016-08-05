@@ -30,7 +30,7 @@ if [ -n "$AUTHTOKEN_DEBUG" ]; then
    DEBUG_OPT="--debug"
 fi
 
-bin/authtoken-ws $DBHOST_OPT $DBNAME_OPT $DBUSER_OPT $DBPASSWD_OPT
+bin/authtoken-ws $DBHOST_OPT $DBNAME_OPT $DBUSER_OPT $DBPASSWD_OPT $DEBUG_OPT
 
 #
 # end of file

@@ -13,6 +13,7 @@ type Config struct {
     DbName        string
     DbUser        string
     DbPassphrase  string
+    Debug         bool
 }
 
 var Configuration = LoadConfig( )
@@ -27,6 +28,7 @@ func LoadConfig( ) Config {
     flag.StringVar( &c.DbName, "dbname", "authtoken_development", "The database name" )
     flag.StringVar( &c.DbUser, "dbuser", "authtoken", "The database username" )
     flag.StringVar( &c.DbPassphrase, "dbpassword", "dbpassword", "The database passphrase")
+    flag.BoolVar( &c.Debug, "debug", false, "Enable debugging")
 
     flag.Parse()
 
@@ -35,6 +37,7 @@ func LoadConfig( ) Config {
     logger.Log( fmt.Sprintf( "DbName:       %s", c.DbName ) )
     logger.Log( fmt.Sprintf( "DbUser:       %s", c.DbUser ) )
     logger.Log( fmt.Sprintf( "DbPassphrase: %s", c.DbPassphrase ) )
+    logger.Log( fmt.Sprintf( "Debug         %t", c.Debug ) )
 
     return c
 }
