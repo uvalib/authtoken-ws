@@ -5,7 +5,6 @@ src/gopkg.in
 bin
 pkg
 sql/addtokens.sql
-env.set
-env.unset
+env.*
 src/authtokenws/service_test.yml
 buildtag.build-0
