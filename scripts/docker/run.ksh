@@ -7,6 +7,8 @@ fi
 INSTANCE=authtoken-ws
 NAMESPACE=uvadave
 
+DB_ENV="-e DBHOST=$DBHOST -e DBNAME=$DBNAME -e DBUSER=$DBUSER -e DBPASSWD=$DBPASSWD"
+
 # stop the running instance
 docker stop $INSTANCE
 
@@ -19,7 +21,7 @@ docker rmi $NAMESPACE/$INSTANCE:current
 # tag the latest as the current
 docker tag -f $NAMESPACE/$INSTANCE:latest $NAMESPACE/$INSTANCE:current
 
-docker run -d -p 8200:8080 -e DBPASSWD=$DBPASSWD --name $INSTANCE $NAMESPACE/$INSTANCE:latest
+docker run -d -p 8200:8080 $DB_ENV --name $INSTANCE $NAMESPACE/$INSTANCE:latest
 
 # return status
 exit $?
