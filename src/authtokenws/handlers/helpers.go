@@ -1,43 +1,13 @@
-package main
+package handlers
 
 import (
     "log"
     "encoding/json"
     "net/http"
-    "github.com/gorilla/mux"
     "authtokenws/api"
 )
 
-func TokenLookup( w http.ResponseWriter, r *http.Request ) {
-    vars := mux.Vars( r )
-    whom := vars[ "whom" ]
-    what := vars[ "what" ]
-    token := vars[ "token" ]
-
-    // parameters OK ?
-    if ParametersOk( whom, what, token ) == false {
-        encodeResponse(w, http.StatusBadRequest )
-        return
-    }
-
-    // is this a good token ?
-    if ActivityIsOk(whom, what, token) == false {
-        encodeResponse(w, http.StatusForbidden)
-        return
-    }
-
-    encodeResponse(w, http.StatusOK)
-}
-
-func HealthCheck( w http.ResponseWriter, r *http.Request ) {
-    encodeHealthCheckResponse( w, http.StatusOK, "" )
-}
-
-func GetVersion( w http.ResponseWriter, r *http.Request ) {
-    encodeVersionResponse( w, http.StatusOK, Version( ) )
-}
-
-func encodeResponse( w http.ResponseWriter, status int ) {
+func encodeLookupResponse( w http.ResponseWriter, status int ) {
     jsonResponse( w )
     w.WriteHeader( status )
     if err := json.NewEncoder(w).Encode( api.DefaultResponse{ Status: status, Message: http.StatusText( status ) } ); err != nil {

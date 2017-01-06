@@ -3,6 +3,7 @@ package main
 import (
    "net/http"
    "github.com/gorilla/mux"
+        "authtokenws/handlers"
 )
 
 type Route struct {
@@ -19,20 +20,20 @@ var routes = Routes{
        "TokenLookup",
        "GET",
        "/authorize/{whom}/{what}/{token}",
-       TokenLookup,
+       handlers.TokenLookup,
     },
     Route{
        "HealthCheck",
        "GET",
        "/healthcheck",
-       HealthCheck,
+       handlers.HealthCheck,
     },
 
     Route{
-        "GetVersion",
+        "VersionInfo",
         "GET",
         "/version",
-        GetVersion,
+        handlers.VersionInfo,
     },
 }
 
