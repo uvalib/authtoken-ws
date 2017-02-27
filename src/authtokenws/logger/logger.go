@@ -5,5 +5,5 @@ import (
 )
 
 func Log( msg string ) {
-    log.Printf( "AUTHTOKEN: %s", msg )
+    log.Printf( "%s", msg )
 }
