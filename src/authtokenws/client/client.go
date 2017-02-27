@@ -11,15 +11,18 @@ import (
     "io/ioutil"
 )
 
+var debugHttp = false
+var serviceTimeout = 5
+
 func HealthCheck( endpoint string ) int {
 
     url := fmt.Sprintf( "%s/healthcheck", endpoint )
     //fmt.Printf( "%s\n", url )
 
     resp, _, errs := gorequest.New( ).
-    SetDebug( false ).
+    SetDebug( debugHttp ).
     Get( url ).
-    Timeout( time.Duration( 5 ) * time.Second ).
+    Timeout( time.Duration( serviceTimeout ) * time.Second ).
     End( )
 
     if errs != nil {
@@ -37,9 +40,9 @@ func VersionCheck( endpoint string ) ( int, string ) {
     //fmt.Printf( "%s\n", url )
 
     resp, body, errs := gorequest.New( ).
-    SetDebug( false ).
+    SetDebug( debugHttp ).
     Get( url ).
-    Timeout( time.Duration( 5 ) * time.Second ).
+    Timeout( time.Duration( serviceTimeout ) * time.Second ).
     End( )
 
     if errs != nil {
@@ -63,9 +66,9 @@ func RuntimeCheck( endpoint string ) ( int, * api.RuntimeResponse ) {
     //fmt.Printf( "%s\n", url )
 
     resp, body, errs := gorequest.New( ).
-            SetDebug( false ).
+            SetDebug( debugHttp ).
             Get( url  ).
-            Timeout( time.Duration( 5 ) * time.Second ).
+            Timeout( time.Duration( serviceTimeout ) * time.Second ).
             End( )
 
     if errs != nil {
@@ -90,9 +93,9 @@ func Auth( endpoint string, whom string, what string, token string ) int {
     //fmt.Printf( "%s\n", url )
 
     resp, _, errs := gorequest.New( ).
-       SetDebug( false ).
+       SetDebug( debugHttp ).
        Get( url  ).
-       Timeout( time.Duration( 5 ) * time.Second ).
+       Timeout( time.Duration( serviceTimeout ) * time.Second ).
        End( )
 
     if errs != nil {
