@@ -2,11 +2,11 @@ package main
 
 import (
 	"authtokenws/client"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"testing"
+	"gopkg.in/yaml.v2"
 )
 
 type TestConfig struct {
@@ -53,7 +53,8 @@ func TestRuntimeCheck(t *testing.T) {
 		t.Fatalf("Expected non-nil runtime info\n")
 	}
 
-	if runtime.AllocatedMemory == 0 ||
+	if  len( runtime.Version ) == 0 ||
+		runtime.AllocatedMemory == 0 ||
 		runtime.CpuCount == 0 ||
 		runtime.GoRoutineCount == 0 ||
 		runtime.ObjectCount == 0 {
