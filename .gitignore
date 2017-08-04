@@ -1,8 +1,8 @@
-.idea
-src/github.com
-bin
-pkg
-sql/addtokens.sql
-env.*
-src/authtokenws/service_test.yml
-buildtag.build-0
+/.idea
+/src/github.com
+/bin
+/pkg
+/sql/addtokens.sql
+/env.*
+/src/authtokenws/service_test.yml
+/buildtag.build-0
