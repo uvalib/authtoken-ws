@@ -27,7 +27,7 @@ func LoadConfig() Config {
 	flag.StringVar(&c.DbHost, "dbhost", "mysqldev.lib.virginia.edu:3306", "The database server hostname:port")
 	flag.StringVar(&c.DbName, "dbname", "authtoken_development", "The database name")
 	flag.StringVar(&c.DbUser, "dbuser", "authtoken", "The database username")
-	flag.StringVar(&c.DbPassphrase, "dbpassword", "dbpassword", "The database passphrase")
+	flag.StringVar(&c.DbPassphrase, "dbpassword", "", "The database passphrase")
 	flag.BoolVar(&c.Debug, "debug", false, "Enable debugging")
 
 	flag.Parse()
