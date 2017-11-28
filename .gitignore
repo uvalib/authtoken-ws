@@ -4,5 +4,5 @@
 /pkg
 /sql/addtokens.sql
 /env.*
-/src/authtokenws/service_test.yml
+/src/authtokenws/tests/service_test.yml
 /buildtag.build-0
