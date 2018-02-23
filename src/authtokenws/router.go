@@ -37,13 +37,6 @@ var routes = routeSlice{
 		"/version",
 		handlers.VersionInfo,
 	},
-
-	route{
-		"RuntimeInfo",
-		"GET",
-		"/runtime",
-		handlers.RuntimeInfo,
-	},
 }
 
 //
