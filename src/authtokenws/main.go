@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -20,7 +21,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// setup router and serve...
+	// setup router and server...
+	serviceTimeout := 15 * time.Second
 	router := NewRouter()
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", config.Configuration.ServicePort), router))
+	server := &http.Server{
+		Addr:         fmt.Sprintf(":%s", config.Configuration.ServicePort),
+		Handler:      router,
+		ReadTimeout:  serviceTimeout,
+		WriteTimeout: serviceTimeout,
+	}
+	log.Fatal(server.ListenAndServe())
 }
