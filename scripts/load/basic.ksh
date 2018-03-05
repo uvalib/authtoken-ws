@@ -25,7 +25,7 @@ count=10000
 url=authorize/loadtest/what/$API_TOKEN
 
 CMD="$LT -c $concurrent -n $count -l $endpoint/$url"
-echo "Host = $TOKENAUTH_URL, count = $count, concurrency = $concurrent"
+echo "Host = $endpoint, count = $count, concurrency = $concurrent"
 echo $CMD
 $CMD
 exit $?
