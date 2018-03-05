@@ -12,20 +12,20 @@ if [ -z "$API_TOKEN" ]; then
    exit 1
 fi
 
-AB=$(which ab | head -1)
-if [ -z "$AB" ]; then
-   echo "ERROR: Apache Bench is not available"
+LT=../../bin/bombardier
+if [ ! -f "$LT" ]; then
+   echo "ERROR: Bombardier is not available"
    exit 1
 fi
 
-# set the test parameters (note time and count are alternatives, test will not be both)
+# set the test parameters
 endpoint=$TOKENAUTH_URL
-concurrent=5
-time=15
-count=5000
+concurrent=10
+count=10000
 url=authorize/loadtest/what/$API_TOKEN
 
-CMD="$AB -t $time -c $concurrent -n $count $endpoint/$url"
+CMD="$LT -c $concurrent -n $count -l $endpoint/$url"
+echo "Host = $TOKENAUTH_URL, count = $count, concurrency = $concurrent"
 echo $CMD
 $CMD
 exit $?
