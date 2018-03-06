@@ -2,8 +2,8 @@ package cache
 
 import (
 	"authtokenws/config"
+	"authtokenws/dao"
 	"authtokenws/logger"
-	"database/sql"
 	"fmt"
 	// needed
 	_ "github.com/go-sql-driver/mysql"
@@ -14,43 +14,34 @@ import (
 // create the cache
 var theCache = cache.New(cache.NoExpiration, cache.NoExpiration)
 
-// whet we put in the cache
-type permissions struct {
-	Whom string
-	What string
-}
-
 //
 // LoadTokenCache -- one time load of the token cache
 //
 func LoadTokenCache() error {
 
+	// access the database
 	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1", config.Configuration.DbUser,
 		config.Configuration.DbPassphrase, config.Configuration.DbHost, config.Configuration.DbName)
-	db, err := sql.Open("mysql", connectStr)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
 
-	rows, err := db.Query("SELECT token, whom, what from authtokens")
+	err := dao.NewDB(connectStr)
 	if err != nil {
+		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
 		log.Fatal(err)
 	}
-	defer rows.Close()
 
-	for rows.Next() {
-		var token, whom, what string
-		err := rows.Scan(&token, &whom, &what)
-		if err != nil {
-			log.Fatal(err)
-		}
-		logger.Log(fmt.Sprintf("Adding: %s/%s -> %s", whom, what, token))
-		theCache.Set(token, permissions{Whom: whom, What: what}, cache.NoExpiration)
-	}
-	err = rows.Err()
+	tokens, err := dao.DB.GetAuthTokens()
 	if err != nil {
+		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
 		log.Fatal(err)
+	}
+
+	// close our connection
+	dao.DB.DestroyDB( )
+
+	for token := range tokens {
+		p := tokens[token]
+		logger.Log(fmt.Sprintf("Adding: %s/%s -> %s", p.Whom, p.What, token))
+		theCache.Set(token, p, cache.NoExpiration)
 	}
 
 	return nil
@@ -67,7 +58,7 @@ func ActivityIsOk(whom string, what string, token string) bool {
 	hit, found := theCache.Get(token)
 	if found {
 		// determine if we have the correct permissions
-		permission := hit.(permissions)
+		permission := hit.(dao.Permissions)
 		found = (permission.Whom == "*" || permission.Whom == whom) &&
 			(permission.What == "*" || permission.What == what)
 	}
