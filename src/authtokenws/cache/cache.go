@@ -19,15 +19,12 @@ var theCache = cache.New(cache.NoExpiration, cache.NoExpiration)
 func LoadTokenCache() error {
 
 	// access the database
-	timeout := "10s" // connect, read and write timeout in seconds
-	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1&timeout=%s&readTimeout=%s&writeTimeout=%s",
+	err := dao.NewDB(
+	    config.Configuration.DbHost,
+		config.Configuration.DbName,
 		config.Configuration.DbUser,
 		config.Configuration.DbPassphrase,
-		config.Configuration.DbHost,
-		config.Configuration.DbName,
-		timeout, timeout, timeout)
-
-	err := dao.NewDB(connectStr)
+		config.Configuration.DbTimeout)
 	if err != nil {
 		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
 		return err
