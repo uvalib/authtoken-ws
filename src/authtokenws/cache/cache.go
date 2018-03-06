@@ -8,7 +8,6 @@ import (
 	// needed
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/patrickmn/go-cache"
-	"log"
 )
 
 // create the cache
@@ -20,23 +19,28 @@ var theCache = cache.New(cache.NoExpiration, cache.NoExpiration)
 func LoadTokenCache() error {
 
 	// access the database
-	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1", config.Configuration.DbUser,
-		config.Configuration.DbPassphrase, config.Configuration.DbHost, config.Configuration.DbName)
+	timeout := "10s" // connect, read and write timeout in seconds
+	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1&timeout=%s&readTimeout=%s&writeTimeout=%s",
+		config.Configuration.DbUser,
+		config.Configuration.DbPassphrase,
+		config.Configuration.DbHost,
+		config.Configuration.DbName,
+		timeout, timeout, timeout)
 
 	err := dao.NewDB(connectStr)
 	if err != nil {
 		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
-		log.Fatal(err)
+		return err
 	}
 
 	tokens, err := dao.DB.GetAuthTokens()
 	if err != nil {
 		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
-		log.Fatal(err)
+		return err
 	}
 
 	// close our connection
-	dao.DB.DestroyDB( )
+	dao.DB.DestroyDB()
 
 	for token := range tokens {
 		p := tokens[token]

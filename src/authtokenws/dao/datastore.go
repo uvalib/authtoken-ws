@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	// needed by the linter
 	_ "github.com/go-sql-driver/mysql"
-	"log"
 )
 
 type dbStruct struct {
@@ -43,8 +42,8 @@ func NewDB(dataSourceName string) error {
 //
 // DestroyDB -- destroy database singleton
 //
-func (db *dbStruct) DestroyDB( ) error {
-	return db.Close( )
+func (db *dbStruct) DestroyDB() error {
+	return db.Close()
 }
 
 //
@@ -54,7 +53,7 @@ func (db *dbStruct) GetAuthTokens() (TokenPermissions, error) {
 
 	rows, err := db.Query("SELECT token, whom, what from authtokens")
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	defer rows.Close()
 
@@ -64,14 +63,14 @@ func (db *dbStruct) GetAuthTokens() (TokenPermissions, error) {
 		var token, whom, what string
 		err := rows.Scan(&token, &whom, &what)
 		if err != nil {
-			return authTokens, err
+			return nil, err
 		}
 
 		authTokens[token] = Permissions{Whom: whom, What: what}
 	}
 	err = rows.Err()
 	if err != nil {
-		return authTokens, err
+		return nil, err
 	}
 
 	return authTokens, nil
