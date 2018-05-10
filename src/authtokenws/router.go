@@ -18,6 +18,14 @@ type route struct {
 type routeSlice []route
 
 var routes = routeSlice{
+
+	route{
+		"FaveIcon",
+		"GET",
+		"/favicon.ico",
+		handlers.FavIconHandler,
+	},
+
 	route{
 		"TokenLookup",
 		"GET",
