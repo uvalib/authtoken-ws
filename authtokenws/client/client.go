@@ -1,10 +1,10 @@
 package client
 
 import (
-	"authtokenws/api"
 	"encoding/json"
 	"fmt"
 	"github.com/parnurzeal/gorequest"
+	"github.com/uvalib/authtoken-ws/authtokenws/api"
 	"io"
 	"io/ioutil"
 	"net/http"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"authtokenws/logger"
 	"fmt"
+	"github.com/uvalib/authtoken-ws/authtokenws/logger"
 	"net/http"
 	"time"
 )

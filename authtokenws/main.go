@@ -1,11 +1,11 @@
 package main
 
 import (
-	"authtokenws/cache"
-	"authtokenws/config"
-	"authtokenws/handlers"
-	"authtokenws/logger"
 	"fmt"
+	"github.com/uvalib/authtoken-ws/authtokenws/cache"
+	"github.com/uvalib/authtoken-ws/authtokenws/config"
+	"github.com/uvalib/authtoken-ws/authtokenws/handlers"
+	"github.com/uvalib/authtoken-ws/authtokenws/logger"
 	"log"
 	"net/http"
 	"time"

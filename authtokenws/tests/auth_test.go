@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"authtokenws/client"
+	"github.com/uvalib/authtoken-ws/authtokenws/client"
 	"net/http"
 	"testing"
 )

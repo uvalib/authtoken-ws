@@ -1,10 +1,10 @@
 package main
 
 import (
-	"authtokenws/handlers"
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/uvalib/authtoken-ws/authtokenws/handlers"
 	"net/http"
 )
 

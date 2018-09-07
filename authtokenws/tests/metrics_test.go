@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"authtokenws/client"
+	"github.com/uvalib/authtoken-ws/authtokenws/client"
 	"net/http"
 	"strings"
 	"testing"
@@ -22,8 +22,8 @@ func TestMetricsCheck(t *testing.T) {
 		t.Fatalf("Expected non-empty metrics info\n")
 	}
 
-	if strings.Contains(metrics, "go_info") == false {
-		t.Fatalf("Expected go_info value in metrics info\n")
+	if strings.Contains(metrics, "go_goroutines") == false {
+		t.Fatalf("Expected go_goroutines value in metrics info\n")
 	}
 }
 

@@ -1,10 +1,10 @@
 package cache
 
 import (
-	"authtokenws/config"
-	"authtokenws/dao"
-	"authtokenws/logger"
 	"fmt"
+	"github.com/uvalib/authtoken-ws/authtokenws/config"
+	"github.com/uvalib/authtoken-ws/authtokenws/dao"
+	"github.com/uvalib/authtoken-ws/authtokenws/logger"
 	// needed
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/patrickmn/go-cache"
@@ -20,7 +20,7 @@ func LoadTokenCache() error {
 
 	// access the database
 	err := dao.NewDB(
-	    config.Configuration.DbHost,
+		config.Configuration.DbHost,
 		config.Configuration.DbName,
 		config.Configuration.DbUser,
 		config.Configuration.DbPassphrase,

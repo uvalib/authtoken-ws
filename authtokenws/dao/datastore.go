@@ -3,8 +3,8 @@ package dao
 import (
 	"database/sql"
 	// needed by the linter
-	_ "github.com/go-sql-driver/mysql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type dbStruct struct {
@@ -28,7 +28,7 @@ var DB *dbStruct
 //
 // NewDB -- create the database singleton
 //
-func NewDB( dbHost string, dbName string, dbUser string, dbPassword string, dbTimeout string ) error {
+func NewDB(dbHost string, dbName string, dbUser string, dbPassword string, dbTimeout string) error {
 
 	// access the database
 	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1&timeout=%s&readTimeout=%s&writeTimeout=%s",
@@ -40,7 +40,7 @@ func NewDB( dbHost string, dbName string, dbUser string, dbPassword string, dbTi
 		dbTimeout,
 		dbTimeout)
 
-	db, err := sql.Open("mysql", connectStr )
+	db, err := sql.Open("mysql", connectStr)
 	if err != nil {
 		return err
 	}

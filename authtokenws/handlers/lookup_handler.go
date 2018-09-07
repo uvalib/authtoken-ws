@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"authtokenws/cache"
 	"github.com/gorilla/mux"
+	"github.com/uvalib/authtoken-ws/authtokenws/cache"
 	"net/http"
 	"strings"
 )

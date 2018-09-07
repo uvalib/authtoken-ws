@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"authtokenws/api"
 	"encoding/json"
+	"github.com/uvalib/authtoken-ws/authtokenws/api"
 	"log"
 	"net/http"
 )
