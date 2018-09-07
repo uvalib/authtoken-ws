@@ -6,5 +6,5 @@
 /sql/addtokens.sql
 /env.*
 /scripts/load/env.*
-/src/authtokenws/tests/service_test.yml
+/authtokenws/tests/service_test.yml
 /buildtag.build-0
