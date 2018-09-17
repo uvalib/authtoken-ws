@@ -1,9 +1,15 @@
 # set blank options variables
+DBSECURE_OPT=""
 DBHOST_OPT=""
 DBNAME_OPT=""
 DBUSER_OPT=""
 DBPASSWD_OPT=""
 DEBUG_OPT=""
+
+# secure database access
+if [ -n "$DBSECURE" ]; then
+   DBSECURE_OPT="--dbsecure=$DBSECURE"
+fi
 
 # database host
 if [ -n "$DBHOST" ]; then
@@ -27,10 +33,10 @@ fi
 
 # service debugging
 if [ -n "$AUTHTOKEN_DEBUG" ]; then
-   DEBUG_OPT="--debug"
+   DEBUG_OPT="--debug=$AUTHTOKEN_DEBUG"
 fi
 
-bin/authtoken-ws $DBHOST_OPT $DBNAME_OPT $DBUSER_OPT $DBPASSWD_OPT $DEBUG_OPT
+bin/authtoken-ws $DBSECURE_OPT $DBHOST_OPT $DBNAME_OPT $DBUSER_OPT $DBPASSWD_OPT $DEBUG_OPT
 
 #
 # end of file
