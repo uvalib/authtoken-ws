@@ -28,10 +28,10 @@ var DB *dbStruct
 //
 // NewDB -- create the database singleton
 //
-func NewDB(dbHost string, dbSecure bool, dbName string, dbUser string, dbPassword string, dbTimeout string) error {
+func NewDB(dbHost string, dbSecure string, dbName string, dbUser string, dbPassword string, dbTimeout string) error {
 
 	// access the database
-	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1&tls=%t&timeout=%s&readTimeout=%s&writeTimeout=%s",
+	connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowOldPasswords=1&tls=%s&timeout=%s&readTimeout=%s&writeTimeout=%s",
 		dbUser,
 		dbPassword,
 		dbHost,
