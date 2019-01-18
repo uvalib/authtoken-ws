@@ -11,14 +11,14 @@ import (
 // Config -- our configuration structure
 //
 type Config struct {
-	ServicePort  string     // our listen port
-	DbSecure     string     // do we use TLS
-	DbHost       string     // hostname of database server
-	DbName       string     // database name
-	DbUser       string     // database user name
-	DbPassphrase string     // database user password
-	DbTimeout    string     // connection/read/write timeout
-	Debug        bool       // debug mode
+	ServicePort  string // our listen port
+	DbSecure     string // do we use TLS
+	DbHost       string // hostname of database server
+	DbName       string // database name
+	DbUser       string // database user name
+	DbPassphrase string // database user password
+	DbTimeout    string // connection/read/write timeout
+	Debug        bool   // debug mode
 }
 
 //
