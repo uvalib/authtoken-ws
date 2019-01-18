@@ -2,12 +2,9 @@ package cache
 
 import (
 	"fmt"
-	"github.com/uvalib/authtoken-ws/authtokenws/config"
+	"github.com/patrickmn/go-cache"
 	"github.com/uvalib/authtoken-ws/authtokenws/dao"
 	"github.com/uvalib/authtoken-ws/authtokenws/logger"
-	// needed
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/patrickmn/go-cache"
 )
 
 // create the cache
@@ -18,28 +15,24 @@ var theCache = cache.New(cache.NoExpiration, cache.NoExpiration)
 //
 func LoadTokenCache() error {
 
-	// access the database
-	err := dao.NewDB(
-		config.Configuration.DbHost,
-		config.Configuration.DbSecure,
-		config.Configuration.DbName,
-		config.Configuration.DbUser,
-		config.Configuration.DbPassphrase,
-		config.Configuration.DbTimeout)
+	// create the storage singleton
+	err := dao.NewDatastore()
 	if err != nil {
 		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
 		return err
 	}
 
-	tokens, err := dao.DB.GetAuthTokens()
+	// load the active tokens
+	tokens, err := dao.Store.GetActiveTokens()
 	if err != nil {
 		logger.Log(fmt.Sprintf("ERROR: %s\n", err.Error()))
 		return err
 	}
 
-	// close our connection
-	dao.DB.DestroyDB()
+	// destroy our storage instance
+	_ = dao.Store.Destroy()
 
+	// add the tokens to the local cache
 	for token := range tokens {
 		p := tokens[token]
 		logger.Log(fmt.Sprintf("Adding: %s/%s -> %s", p.Whom, p.What, token))
